@@ -1,14 +1,18 @@
 import React from "react";
-import "./App.scss";
-import HomePage from "./pages/HomePage/HomePage";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import LoginPage from "pages/LoginPage/LoginPage.tsx";
+import HomePage from "pages/HomePage/HomePage";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <HomePage />
-      </header>
-    </div>
+    <Router>
+      <div className="App">
+        <Routes>
+          <Route path="/Login" Component={LoginPage} />
+          <Route path="/Dashboard" Component={HomePage} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
