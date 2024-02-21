@@ -2,15 +2,28 @@ import React, { useRef } from "react";
 import { Button, Card, Form } from "react-bootstrap";
 import "./LoginPage.scss";
 import ReCAPTCHA from "react-google-recaptcha";
+import axios from "axios";
+import { useNavigate } from "react-router";
 
 const LoginPage = () => {
   const captchaRef = useRef<ReCAPTCHA>(null);
   const emailRef = useRef<HTMLInputElement | null>(null);
-
-  function loginUser(e: React.FormEvent<HTMLFormElement>) {
+  const navigate = useNavigate();
+  async function loginUser(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const captchaValue = captchaRef.current?.getValue();
-    console.log(captchaValue, emailRef.current?.value);
+    const emailValue = emailRef.current?.value;
+
+    try {
+      await axios
+        .post("http://localhost:8080/userLogin", {
+          email: emailValue,
+          captchaToken: captchaValue,
+        })
+        .then(() => navigate("/Dashboard"));
+    } catch (error) {
+      console.error("Failed to login:", error);
+    }
   }
 
   return (
