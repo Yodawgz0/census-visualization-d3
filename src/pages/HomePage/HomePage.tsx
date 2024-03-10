@@ -6,7 +6,7 @@ import { Button } from "react-bootstrap";
 
 axios.defaults.withCredentials = true;
 
-function HomePage() {
+const HomePage: React.FC = () => {
   const [data, setData] = useState<censusData[]>([]);
   const history = useNavigate();
   useEffect(() => {
@@ -30,7 +30,7 @@ function HomePage() {
       <p>HomePage</p>
       <Button>Log Out</Button>
       {data?.map((e, i) => (
-        <div key={i} className=" d-flex flex-row ">
+        <div key={i} className="d-flex flex-row">
           {" "}
           <p>{e.name}</p>
           <p>{e.population}</p>
@@ -39,6 +39,6 @@ function HomePage() {
       ))}
     </div>
   );
-}
+};
 
 export default HomePage;
